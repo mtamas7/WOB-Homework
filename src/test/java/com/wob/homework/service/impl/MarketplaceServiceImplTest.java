@@ -1,6 +1,6 @@
 package com.wob.homework.service.impl;
 
-import com.wob.homework.dto.MarketPlaceDTO;
+import com.wob.homework.dto.MarketplaceDTO;
 import com.wob.homework.entity.MarketPlaceEntity;
 import com.wob.homework.repository.MarketplaceRepository;
 import com.wob.homework.service.ApiService;
@@ -44,7 +44,7 @@ class MarketplaceServiceImplTest {
 
     @Test
     void shouldReturnMarketplaceEntityList() {
-        when(apiService.getMarketplaceList()).thenReturn(Collections.singletonList(new MarketPlaceDTO(MOCK_MARKETPLACE_ID, MOCK_MARKETPLACE_NAME)));
+        when(apiService.getMarketplaceList()).thenReturn(Collections.singletonList(new MarketplaceDTO(MOCK_MARKETPLACE_ID, MOCK_MARKETPLACE_NAME)));
 
         underTest.fetchAndSaveMarketplaceData();
 
@@ -59,7 +59,7 @@ class MarketplaceServiceImplTest {
         when(apiService.getMarketplaceList()).thenReturn(Collections.emptyList());
 
         underTest.fetchAndSaveMarketplaceData();
-        
+
         verify(marketplaceRepository, never()).saveAll(any());
     }
 }

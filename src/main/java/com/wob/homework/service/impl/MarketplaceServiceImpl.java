@@ -1,6 +1,6 @@
 package com.wob.homework.service.impl;
 
-import com.wob.homework.dto.MarketPlaceDTO;
+import com.wob.homework.dto.MarketplaceDTO;
 import com.wob.homework.entity.MarketPlaceEntity;
 import com.wob.homework.repository.MarketplaceRepository;
 import com.wob.homework.service.ApiService;
@@ -19,7 +19,6 @@ public class MarketplaceServiceImpl implements MarketplaceService {
     private static final Logger LOGGER = LoggerFactory.getLogger(MarketplaceServiceImpl.class);
 
     private final ApiService apiService;
-
     private final MarketplaceRepository marketplaceRepository;
 
     @Autowired
@@ -31,7 +30,7 @@ public class MarketplaceServiceImpl implements MarketplaceService {
     @Override
     public void fetchAndSaveMarketplaceData() {
         LOGGER.info("Marketplace data fetching is in progress...");
-        List<MarketPlaceDTO> marketPlaceList = apiService.getMarketplaceList();
+        List<MarketplaceDTO> marketPlaceList = apiService.getMarketplaceList();
         List<MarketPlaceEntity> marketPlaceEntities = marketPlaceList.stream()
                 .map(this::mapMarketplaceDTO)
                 .collect(Collectors.toList());
@@ -44,7 +43,7 @@ public class MarketplaceServiceImpl implements MarketplaceService {
         }
     }
 
-    private MarketPlaceEntity mapMarketplaceDTO(MarketPlaceDTO marketPlaceDTO) {
+    private MarketPlaceEntity mapMarketplaceDTO(MarketplaceDTO marketPlaceDTO) {
         return new MarketPlaceEntity(marketPlaceDTO.getId(), marketPlaceDTO.getMarketplaceName());
     }
 }

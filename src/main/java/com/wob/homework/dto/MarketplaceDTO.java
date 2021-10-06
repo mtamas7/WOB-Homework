@@ -2,7 +2,7 @@ package com.wob.homework.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class MarketPlaceDTO {
+public class MarketplaceDTO {
     @JsonProperty("id")
     private Long id;
 
@@ -17,7 +17,7 @@ public class MarketPlaceDTO {
         return marketplace_name;
     }
 
-    public MarketPlaceDTO(Long id, String marketplace_name) {
+    public MarketplaceDTO(Long id, String marketplace_name) {
         this.id = id;
         this.marketplace_name = marketplace_name;
     }
