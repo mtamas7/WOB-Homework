@@ -2,6 +2,7 @@ package com.wob.homework.service.impl;
 
 import com.google.gson.Gson;
 import com.wob.homework.dto.ListingStatusDTO;
+import com.wob.homework.dto.LocationDTO;
 import com.wob.homework.dto.MarketplaceDTO;
 import com.wob.homework.service.ApiService;
 import org.slf4j.Logger;
@@ -28,6 +29,9 @@ public class ApiServiceImpl implements ApiService {
 
     @Value("${listingStatus.url}")
     private String listingStatusUrl;
+
+    @Value("${location.url}")
+    private String locationUrl;
 
     @Value("${apikey}")
     private String apiKey;
@@ -58,6 +62,15 @@ public class ApiServiceImpl implements ApiService {
         ListingStatusDTO[] listingStatusDTOArray = gson.fromJson(responseJSON, ListingStatusDTO[].class);
         LOGGER.info("Fetching listing status data from API finished");
         return listingStatusDTOArray.length != 0 ? Arrays.asList(listingStatusDTOArray) : Collections.emptyList();
+    }
+
+    @Override
+    public List<LocationDTO> getLocationList() {
+        LOGGER.info("Fetching location data from API");
+        String responseJSON = getResponseJSON(locationUrl);
+        LocationDTO[] locationDTOArray = gson.fromJson(responseJSON, LocationDTO[].class);
+        LOGGER.info("Fetching location data from API finished");
+        return locationDTOArray.length != 0 ? Arrays.asList(locationDTOArray) : Collections.emptyList();
     }
 
     private String getUrl(String serviceUrl) {
