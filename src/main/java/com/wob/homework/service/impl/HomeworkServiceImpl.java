@@ -28,8 +28,8 @@ public class HomeworkServiceImpl implements HomeworkService {
     @Override
     public void fetchDataAndCreateReport() {
         LOGGER.info("Application started, fetch and process data from API is in progress, please wait... ");
-//        marketplaceService.fetchAndSaveMarketplaceData();
-//        listingStatusService.fetchAndSaveListingStatusData();
+        marketplaceService.fetchAndSaveMarketplaceData();
+        listingStatusService.fetchAndSaveListingStatusData();
         locationService.fetchAndSaveLocationData();
     }
 }

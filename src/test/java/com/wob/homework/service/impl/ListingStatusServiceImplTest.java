@@ -31,7 +31,7 @@ class ListingStatusServiceImplTest {
     private ListingStatusRepository listingStatusRepository;
 
     @Captor
-    ArgumentCaptor<List<ListingStatusEntity>> argumentCaptor;
+    private ArgumentCaptor<List<ListingStatusEntity>> argumentCaptor;
 
     private ListingStatusServiceImpl underTest;
 
