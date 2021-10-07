@@ -32,7 +32,7 @@ class MarketplaceServiceImplTest {
     private MarketplaceRepository marketplaceRepository;
 
     @Captor
-    ArgumentCaptor<List<MarketPlaceEntity>> argumentCaptor;
+    private ArgumentCaptor<List<MarketPlaceEntity>> argumentCaptor;
 
     private MarketplaceServiceImpl underTest;
 

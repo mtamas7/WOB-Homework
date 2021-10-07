@@ -3,6 +3,7 @@ package com.wob.homework.service.impl;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.wob.homework.dto.ListingStatusDTO;
+import com.wob.homework.dto.LocationDTO;
 import com.wob.homework.dto.MarketplaceDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,10 +24,13 @@ import static org.mockito.Mockito.when;
 class ApiServiceImplTest {
 
     private static final Long MOCK_ID = 1L;
+    private static final String MOCK_UUID = "ac867cd8-c321-42ab-b179-01a4b8301a9c";
     private static final String MOCK_MARKETPLACE_NAME = "mockMarketplaceName";
     private static final String MOCK_LISTING_STATUS_NAME = "mockListingStatusName";
+    private static final String MOCK_MANAGER_NAME = "Harry Potter";
     private static final String MOCK_MARKETPLACE_JSON = "[{\"id\": " + MOCK_ID + ", \"marketplace_name\": \"" + MOCK_MARKETPLACE_NAME + "\"}]";
     private static final String MOCK_LISTING_STATUS_JSON = "[{\"id\": " + MOCK_ID + ", \"status_name\": \"" + MOCK_LISTING_STATUS_NAME + "\"}]";
+    private static final String MOCK_LOCATION_JSON = "[{\"id\": \"ac867cd8-c321-42ab-b179-01a4b8301a9c\",\"manager_name\": \"Harry Potter\",\"phone\": \"338-725-3223\",\"address_primary\": \"4 Privet Drive\",\"address_secondary\": null,\"country\": \"England\",\"town\": \"Little Whinging\",\"postal_code\": null}]";
     private static final String MOCK_EMPTY_JSON = "[]";
 
     @Mock
@@ -99,5 +103,35 @@ class ApiServiceImplTest {
                 .thenReturn(responseEntity);
         List<ListingStatusDTO> listingStatusList = underTest.getListingStatusList();
         assertTrue(listingStatusList.isEmpty());
+    }
+
+    @Test
+    void shouldReturnLocationList() {
+        ResponseEntity<String> responseEntity = new ResponseEntity<>(MOCK_LOCATION_JSON, HttpStatus.ACCEPTED);
+        when(restTemplate.exchange(
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.any(HttpMethod.class),
+                ArgumentMatchers.any(),
+                ArgumentMatchers.<Class<String>>any()))
+                .thenReturn(responseEntity);
+
+        List<LocationDTO> locationList = underTest.getLocationList();
+
+        assertEquals(1, locationList.size());
+        assertEquals(MOCK_UUID, locationList.get(0).getId());
+        assertEquals(MOCK_MANAGER_NAME, locationList.get(0).getManagerName());
+    }
+
+    @Test
+    void shouldReturnEmptyListIfLocationResponseIsEmpty() {
+        ResponseEntity<String> responseEntity = new ResponseEntity<>(MOCK_EMPTY_JSON, HttpStatus.ACCEPTED);
+        when(restTemplate.exchange(
+                ArgumentMatchers.anyString(),
+                ArgumentMatchers.any(HttpMethod.class),
+                ArgumentMatchers.any(),
+                ArgumentMatchers.<Class<String>>any()))
+                .thenReturn(responseEntity);
+        List<LocationDTO> locationList = underTest.getLocationList();
+        assertTrue(locationList.isEmpty());
     }
 }
