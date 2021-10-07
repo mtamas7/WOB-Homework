@@ -1,6 +1,7 @@
 package com.wob.homework.service.impl;
 
 import com.google.gson.Gson;
+import com.wob.homework.dto.ListingDTO;
 import com.wob.homework.dto.ListingStatusDTO;
 import com.wob.homework.dto.LocationDTO;
 import com.wob.homework.dto.MarketplaceDTO;
@@ -11,8 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -32,6 +36,9 @@ public class ApiServiceImpl implements ApiService {
 
     @Value("${location.url}")
     private String locationUrl;
+
+    @Value("${listing.url}")
+    private String listingUrl;
 
     @Value("${apikey}")
     private String apiKey;
@@ -71,6 +78,21 @@ public class ApiServiceImpl implements ApiService {
         LocationDTO[] locationDTOArray = gson.fromJson(responseJSON, LocationDTO[].class);
         LOGGER.info("Fetching location data from API finished");
         return locationDTOArray.length != 0 ? Arrays.asList(locationDTOArray) : Collections.emptyList();
+    }
+
+    @Override
+    public List<ListingDTO> getListingList() {
+        LOGGER.info("Fetching listing data from API");
+//        String responseJSON = getResponseJSON(listingUrl);
+        String responseJSON = "";
+        try {
+            responseJSON = new String(Files.readAllBytes(ResourceUtils.getFile("classpath:listing.json").toPath()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        ListingDTO[] listingDTOArray = gson.fromJson(responseJSON, ListingDTO[].class);
+        LOGGER.info("Fetching listing data from API finished");
+        return listingDTOArray.length != 0 ? Arrays.asList(listingDTOArray) : Collections.emptyList();
     }
 
     private String getUrl(String serviceUrl) {

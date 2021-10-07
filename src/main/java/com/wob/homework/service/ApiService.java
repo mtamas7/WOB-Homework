@@ -1,5 +1,6 @@
 package com.wob.homework.service;
 
+import com.wob.homework.dto.ListingDTO;
 import com.wob.homework.dto.ListingStatusDTO;
 import com.wob.homework.dto.LocationDTO;
 import com.wob.homework.dto.MarketplaceDTO;
@@ -30,4 +31,12 @@ public interface ApiService {
      * it will be an empty list if the response did not contain the data
      */
     List<LocationDTO> getLocationList();
+
+    /**
+     * Fetch the listing list from the API.
+     *
+     * @return List<ListingDTO> the list of the listings otherwise
+     * it will be an empty list if the response did not contain the data
+     */
+    List<ListingDTO> getListingList();
 }

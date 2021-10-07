@@ -1,6 +1,7 @@
 package com.wob.homework.service.impl;
 
 import com.wob.homework.service.HomeworkService;
+import com.wob.homework.service.ListingService;
 import com.wob.homework.service.ListingStatusService;
 import com.wob.homework.service.LocationService;
 import com.wob.homework.service.MarketplaceService;
@@ -17,19 +18,22 @@ public class HomeworkServiceImpl implements HomeworkService {
     private final MarketplaceService marketplaceService;
     private final ListingStatusService listingStatusService;
     private final LocationService locationService;
+    private final ListingService listingService;
 
     @Autowired
-    public HomeworkServiceImpl(MarketplaceService marketplaceService, ListingStatusService listingStatusService, LocationService locationService) {
+    public HomeworkServiceImpl(MarketplaceService marketplaceService, ListingStatusService listingStatusService, LocationService locationService, ListingService listingService) {
         this.marketplaceService = marketplaceService;
         this.listingStatusService = listingStatusService;
         this.locationService = locationService;
+        this.listingService = listingService;
     }
 
     @Override
     public void fetchDataAndCreateReport() {
         LOGGER.info("Application started, fetch and process data from API is in progress, please wait... ");
-        marketplaceService.fetchAndSaveMarketplaceData();
-        listingStatusService.fetchAndSaveListingStatusData();
-        locationService.fetchAndSaveLocationData();
+//        marketplaceService.fetchAndSaveMarketplaceData();
+//        listingStatusService.fetchAndSaveListingStatusData();
+//        locationService.fetchAndSaveLocationData();
+        listingService.fetchAndSaveListingData();
     }
 }
