@@ -12,12 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "market_places")
+@Table(name = "marketplaces")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MarketPlaceEntity {
+public class MarketplaceEntity {
     @Id
     private Long id;
 

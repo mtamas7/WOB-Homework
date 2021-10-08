@@ -53,10 +53,18 @@ public class ApiServiceImpl implements ApiService {
         this.gson = gson;
     }
 
+    //todo create a mock profile to testing
+
     @Override
     public List<MarketplaceDTO> getMarketplaceList() {
         LOGGER.info("Fetching marketplace data from API");
-        String responseJSON = getResponseJSON(marketplaceUrl);
+//        String responseJSON = getResponseJSON(marketplaceUrl);
+        String responseJSON = "";
+        try {
+            responseJSON = new String(Files.readAllBytes(ResourceUtils.getFile("classpath:marketplace.json").toPath()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         MarketplaceDTO[] marketplaceDTOArray = gson.fromJson(responseJSON, MarketplaceDTO[].class);
         LOGGER.info("Fetching marketplace data from API finished");
         return marketplaceDTOArray.length != 0 ? Arrays.asList(marketplaceDTOArray) : Collections.emptyList();
@@ -65,7 +73,13 @@ public class ApiServiceImpl implements ApiService {
     @Override
     public List<ListingStatusDTO> getListingStatusList() {
         LOGGER.info("Fetching listing status data from API");
-        String responseJSON = getResponseJSON(listingStatusUrl);
+//        String responseJSON = getResponseJSON(listingStatusUrl);
+        String responseJSON = "";
+        try {
+            responseJSON = new String(Files.readAllBytes(ResourceUtils.getFile("classpath:listingstatus.json").toPath()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         ListingStatusDTO[] listingStatusDTOArray = gson.fromJson(responseJSON, ListingStatusDTO[].class);
         LOGGER.info("Fetching listing status data from API finished");
         return listingStatusDTOArray.length != 0 ? Arrays.asList(listingStatusDTOArray) : Collections.emptyList();
@@ -74,7 +88,13 @@ public class ApiServiceImpl implements ApiService {
     @Override
     public List<LocationDTO> getLocationList() {
         LOGGER.info("Fetching location data from API");
-        String responseJSON = getResponseJSON(locationUrl);
+//        String responseJSON = getResponseJSON(locationUrl);
+        String responseJSON = "";
+        try {
+            responseJSON = new String(Files.readAllBytes(ResourceUtils.getFile("classpath:locationdata.json").toPath()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         LocationDTO[] locationDTOArray = gson.fromJson(responseJSON, LocationDTO[].class);
         LOGGER.info("Fetching location data from API finished");
         return locationDTOArray.length != 0 ? Arrays.asList(locationDTOArray) : Collections.emptyList();
@@ -86,7 +106,7 @@ public class ApiServiceImpl implements ApiService {
 //        String responseJSON = getResponseJSON(listingUrl);
         String responseJSON = "";
         try {
-            responseJSON = new String(Files.readAllBytes(ResourceUtils.getFile("classpath:invalid.json").toPath()));
+            responseJSON = new String(Files.readAllBytes(ResourceUtils.getFile("classpath:listing.json").toPath()));
         } catch (IOException e) {
             e.printStackTrace();
         }

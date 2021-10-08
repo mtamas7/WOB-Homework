@@ -2,11 +2,9 @@ package com.wob.homework.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.UUID;
-
 public class ListingDTO {
     @JsonProperty(value = "id")
-    private UUID id;
+    private String id;
 
     @JsonProperty(value = "title")
     private String title;
@@ -15,7 +13,7 @@ public class ListingDTO {
     private String description;
 
     @JsonProperty(value = "location_id")
-    private UUID location_id;
+    private String location_id;
 
     @JsonProperty(value = "listing_price")
     private double listing_price;
@@ -38,11 +36,11 @@ public class ListingDTO {
     @JsonProperty(value = "owner_email_address")
     private String owner_email_address;
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -62,11 +60,11 @@ public class ListingDTO {
         this.description = description;
     }
 
-    public UUID getLocationId() {
+    public String getLocationId() {
         return location_id;
     }
 
-    public void setLocationId(UUID locationId) {
+    public void setLocationId(String locationId) {
         this.location_id = locationId;
     }
 
@@ -127,7 +125,7 @@ public class ListingDTO {
         this.owner_email_address = ownerEmailAddress;
     }
 
-    public ListingDTO(UUID id, String title, String description, UUID locationId, double price, String currency, long quantity, long status, long marketplace, String uploadTime, String ownerEmailAddress) {
+    public ListingDTO(String id, String title, String description, String locationId, double price, String currency, long quantity, long status, long marketplace, String uploadTime, String ownerEmailAddress) {
         this.id = id;
         this.title = title;
         this.description = description;

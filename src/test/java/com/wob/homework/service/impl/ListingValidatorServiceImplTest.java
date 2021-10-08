@@ -3,7 +3,7 @@ package com.wob.homework.service.impl;
 
 import com.wob.homework.dto.ListingDTO;
 import com.wob.homework.entity.ListingStatusEntity;
-import com.wob.homework.entity.MarketPlaceEntity;
+import com.wob.homework.entity.MarketplaceEntity;
 import com.wob.homework.model.ListingValidationResult;
 import com.wob.homework.repository.ListingStatusRepository;
 import com.wob.homework.repository.MarketplaceRepository;
@@ -14,7 +14,6 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Collections;
 import java.util.Optional;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -50,7 +49,7 @@ class ListingValidatorServiceImplTest {
         underTest = new ListingValidatorServiceImpl(listingStatusRepository, marketplaceRepository);
 
         when(marketplaceRepository.findAll())
-                .thenReturn(Collections.singletonList(new MarketPlaceEntity(MOCK_ID, MOCK_MARKETPLACE_NAME)));
+                .thenReturn(Collections.singletonList(new MarketplaceEntity(MOCK_ID, MOCK_MARKETPLACE_NAME)));
         when(listingStatusRepository.findAll())
                 .thenReturn(Collections.singletonList(new ListingStatusEntity(MOCK_ID, MOCK_LISTING_STATUS_NAME)));
     }
@@ -77,7 +76,7 @@ class ListingValidatorServiceImplTest {
 
     @Test
     void shouldReturnInvalidResponseForValidationIfDataIsNotValid() {
-        when(marketplaceRepository.findById(anyLong())).thenReturn(Optional.of(new MarketPlaceEntity(MOCK_ID, MOCK_MARKETPLACE_NAME)));
+        when(marketplaceRepository.findById(anyLong())).thenReturn(Optional.of(new MarketplaceEntity(MOCK_ID, MOCK_MARKETPLACE_NAME)));
 
         ListingDTO mockListingDTO = getMockListingDTO();
         mockListingDTO.setDescription(null);
@@ -91,10 +90,10 @@ class ListingValidatorServiceImplTest {
     }
 
     private ListingDTO getMockListingDTO() {
-        return new ListingDTO(UUID.fromString(MOCK_UUID),
+        return new ListingDTO(MOCK_UUID,
                 MOCK_TITLE,
                 MOCK_DESCRIPTION,
-                UUID.fromString(MOCK_LOCATION_ID),
+                MOCK_LOCATION_ID,
                 MOCK_LISTING_PRICE,
                 MOCK_CURRENCY,
                 MOCK_QUANTITY,

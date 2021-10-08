@@ -2,7 +2,7 @@ package com.wob.homework.service.impl;
 
 import com.wob.homework.dto.ListingDTO;
 import com.wob.homework.entity.ListingStatusEntity;
-import com.wob.homework.entity.MarketPlaceEntity;
+import com.wob.homework.entity.MarketplaceEntity;
 import com.wob.homework.model.InvalidListingData;
 import com.wob.homework.model.ListingValidationResult;
 import com.wob.homework.repository.ListingStatusRepository;
@@ -53,7 +53,7 @@ public class ListingValidatorServiceImpl implements ListingValidatorService {
     }
 
     private List<String> validate(ListingDTO listingDTO) {
-        List<Long> marketplaceIdList = marketplaceRepository.findAll().stream().map(MarketPlaceEntity::getId).collect(Collectors.toList());
+        List<Long> marketplaceIdList = marketplaceRepository.findAll().stream().map(MarketplaceEntity::getId).collect(Collectors.toList());
         List<Long> listingStatusIdList = listingStatusRepository.findAll().stream().map(ListingStatusEntity::getId).collect(Collectors.toList());
 
         List<String> invalidFields = new ArrayList<>();
@@ -94,7 +94,7 @@ public class ListingValidatorServiceImpl implements ListingValidatorService {
     }
 
     private InvalidListingData createValidationResult(ListingDTO listingDTO, List<String> invalidFields) {
-        Optional<MarketPlaceEntity> marketPlace = marketplaceRepository.findById(listingDTO.getMarketplace());
+        Optional<MarketplaceEntity> marketPlace = marketplaceRepository.findById(listingDTO.getMarketplace());
         String marketplaceName = marketPlace.isPresent() ? marketPlace.get().getMarketplaceName() : "Unknown";
 
         return new InvalidListingData(listingDTO.getId(), marketplaceName, invalidFields);

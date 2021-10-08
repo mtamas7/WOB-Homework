@@ -1,7 +1,7 @@
 package com.wob.homework.service.impl;
 
 import com.wob.homework.dto.MarketplaceDTO;
-import com.wob.homework.entity.MarketPlaceEntity;
+import com.wob.homework.entity.MarketplaceEntity;
 import com.wob.homework.repository.MarketplaceRepository;
 import com.wob.homework.service.ApiService;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,7 +32,7 @@ class MarketplaceServiceImplTest {
     private MarketplaceRepository marketplaceRepository;
 
     @Captor
-    private ArgumentCaptor<List<MarketPlaceEntity>> argumentCaptor;
+    private ArgumentCaptor<List<MarketplaceEntity>> argumentCaptor;
 
     private MarketplaceServiceImpl underTest;
 
