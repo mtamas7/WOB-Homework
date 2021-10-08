@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -151,7 +152,7 @@ class ApiServiceImplTest {
         List<ListingDTO> listingList = underTest.getListingList();
 
         assertEquals(1, listingList.size());
-        assertEquals(MOCK_UUID, listingList.get(0).getId());
+        assertEquals(UUID.fromString(MOCK_UUID), listingList.get(0).getId());
         assertEquals(MOCK_TITLE_NAME, listingList.get(0).getTitle());
     }
 

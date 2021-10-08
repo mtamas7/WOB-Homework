@@ -86,7 +86,7 @@ public class ApiServiceImpl implements ApiService {
 //        String responseJSON = getResponseJSON(listingUrl);
         String responseJSON = "";
         try {
-            responseJSON = new String(Files.readAllBytes(ResourceUtils.getFile("classpath:listing.json").toPath()));
+            responseJSON = new String(Files.readAllBytes(ResourceUtils.getFile("classpath:invalid.json").toPath()));
         } catch (IOException e) {
             e.printStackTrace();
         }

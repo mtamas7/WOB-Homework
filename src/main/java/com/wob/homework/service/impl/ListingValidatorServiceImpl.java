@@ -1,21 +1,26 @@
 package com.wob.homework.service.impl;
 
 import com.wob.homework.dto.ListingDTO;
+import com.wob.homework.entity.ListingStatusEntity;
 import com.wob.homework.entity.MarketPlaceEntity;
 import com.wob.homework.model.InvalidListingData;
 import com.wob.homework.model.ListingValidationResult;
 import com.wob.homework.repository.ListingStatusRepository;
 import com.wob.homework.repository.MarketplaceRepository;
 import com.wob.homework.service.ListingValidatorService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ListingValidatorServiceImpl implements ListingValidatorService {
+    private static final Logger LOGGER = LoggerFactory.getLogger(ListingValidatorServiceImpl.class);
 
     private static final String PRICE_REGEX = "^[0-9]+(\\.[0-9][0-9])$";
     private static final String EMAIL_REGEX = "^[\\w-_.+]*[\\w-_.]@([\\w]+\\.)+[\\w]+[\\w]$";
@@ -31,6 +36,7 @@ public class ListingValidatorServiceImpl implements ListingValidatorService {
 
     @Override
     public ListingValidationResult validateListings(List<ListingDTO> listingDTOList) {
+        LOGGER.info("Listing data validation has been started...");
         List<ListingDTO> validListingList = new ArrayList<>();
         List<InvalidListingData> invalidListingData = new ArrayList<>();
 
@@ -42,18 +48,22 @@ public class ListingValidatorServiceImpl implements ListingValidatorService {
                 invalidListingData.add(createValidationResult(listingDTO, invalidFields));
             }
         }
+        LOGGER.info("Listing data validation finished ");
         return new ListingValidationResult(validListingList, invalidListingData);
     }
 
     private List<String> validate(ListingDTO listingDTO) {
+        List<Long> marketplaceIdList = marketplaceRepository.findAll().stream().map(MarketPlaceEntity::getId).collect(Collectors.toList());
+        List<Long> listingStatusIdList = listingStatusRepository.findAll().stream().map(ListingStatusEntity::getId).collect(Collectors.toList());
+
         List<String> invalidFields = new ArrayList<>();
         if (!isValidTitle(listingDTO.getTitle())) invalidFields.add("title");
         if (!isValidDescription(listingDTO.getDescription())) invalidFields.add("description");
         if (!isValidListingPrice(listingDTO.getListingPrice())) invalidFields.add("listing_price");
         if (!isValidCurrency(listingDTO.getCurrency())) invalidFields.add("currency");
         if (!isValidQuantity(listingDTO.getQuantity())) invalidFields.add("quantity");
-        if (!listingStatusRepository.existsById(listingDTO.getListingStatus())) invalidFields.add("listing_status");
-        if (!marketplaceRepository.existsById(listingDTO.getMarketplace())) invalidFields.add("marketplace");
+        if (!listingStatusIdList.contains(listingDTO.getListingStatus())) invalidFields.add("listing_status");
+        if (!marketplaceIdList.contains(listingDTO.getMarketplace())) invalidFields.add("marketplace");
         if (!isValidOwnerEmailAddress(listingDTO.getOwnerEmailAddress())) invalidFields.add("owner_email_address");
 
         return invalidFields;
@@ -68,7 +78,6 @@ public class ListingValidatorServiceImpl implements ListingValidatorService {
     }
 
     private boolean isValidListingPrice(Double d) {
-
         return d.toString().matches(PRICE_REGEX);
     }
 

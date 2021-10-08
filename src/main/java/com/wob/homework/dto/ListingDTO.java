@@ -127,11 +127,11 @@ public class ListingDTO {
         this.owner_email_address = ownerEmailAddress;
     }
 
-    public ListingDTO(UUID id, String title, String description, UUID inventoryItemLocationId, double price, String currency, long quantity, long status, long marketplace, String uploadTime, String ownerEmailAddress) {
+    public ListingDTO(UUID id, String title, String description, UUID locationId, double price, String currency, long quantity, long status, long marketplace, String uploadTime, String ownerEmailAddress) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.location_id = inventoryItemLocationId;
+        this.location_id = locationId;
         this.listing_price = price;
         this.currency = currency;
         this.quantity = quantity;
