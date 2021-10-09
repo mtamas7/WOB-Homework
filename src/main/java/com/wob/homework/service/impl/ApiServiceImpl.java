@@ -53,8 +53,6 @@ public class ApiServiceImpl implements ApiService {
         this.gson = gson;
     }
 
-    //todo create a mock profile to testing
-
     @Override
     public List<MarketplaceDTO> getMarketplaceList() {
         LOGGER.info("Fetching marketplace data from API");

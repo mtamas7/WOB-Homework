@@ -59,16 +59,12 @@ public class ListingServiceImpl implements ListingService {
         if (!listingValidationResult.getValidListingList().isEmpty()) {
             List<ListingEntity> entities = listingValidationResult.getValidListingList().stream().map(this::mapDTOToEntity).collect(Collectors.toList());
             listingRepository.saveAll(entities);
-
-            List<ListingEntity> all = listingRepository.findAll();
-            String marketplaceName = all.get(0).getMarketplace().getMarketplaceName();
+            reportService.createAndUploadReport();
+            LOGGER.info("Processing listing data has finished");
         }
     }
 
     private ListingEntity mapDTOToEntity(ListingDTO listingDTO) {
-
-        marketplaceRepository.getById(listingDTO.getMarketplace());
-        
         return new ListingEntity(listingDTO.getId(),
                 listingDTO.getTitle(),
                 listingDTO.getDescription(),
