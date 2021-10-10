@@ -58,7 +58,7 @@ public class ReportServiceImpl implements ReportService {
                 printWriter.print(getRowFromInvalidData(invalidListingData));
             }
             printWriter.close();
-
+            LOGGER.info("Processing invalid listing data finished");
         } catch (IOException e) {
             LOGGER.error("Something went wrong while processing invalid listings data... ");
         }
@@ -66,6 +66,7 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public void createAndUploadReport() {
+        LOGGER.info("Create report from listing data...");
         try {
             FileWriter writer = new FileWriter(REPORT_FILE_NAME);
             new GsonBuilder()
@@ -76,6 +77,7 @@ public class ReportServiceImpl implements ReportService {
             writer.flush();
             writer.close();
             uploadReportFile();
+            LOGGER.info("Creating report has finished");
         } catch (IOException e) {
             LOGGER.error("Something went wrong while creating report...");
         }
@@ -131,6 +133,7 @@ public class ReportServiceImpl implements ReportService {
                 LOGGER.info("Successful login to ftp");
                 client.storeFile(REPORT_FILE_NAME, new FileInputStream(file));
                 client.logout();
+                LOGGER.info("File uploading has been completed");
             }
 
         } catch (IOException e) {

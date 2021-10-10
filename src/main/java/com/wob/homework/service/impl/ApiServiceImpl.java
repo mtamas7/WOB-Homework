@@ -10,18 +10,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 @Service
+@Profile("!mock")
 public class ApiServiceImpl implements ApiService {
     Logger LOGGER = LoggerFactory.getLogger(ApiServiceImpl.class);
 
@@ -56,13 +55,7 @@ public class ApiServiceImpl implements ApiService {
     @Override
     public List<MarketplaceDTO> getMarketplaceList() {
         LOGGER.info("Fetching marketplace data from API");
-//        String responseJSON = getResponseJSON(marketplaceUrl);
-        String responseJSON = "";
-        try {
-            responseJSON = new String(Files.readAllBytes(ResourceUtils.getFile("classpath:marketplace.json").toPath()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String responseJSON = getResponseJSON(marketplaceUrl);
         MarketplaceDTO[] marketplaceDTOArray = gson.fromJson(responseJSON, MarketplaceDTO[].class);
         LOGGER.info("Fetching marketplace data from API finished");
         return marketplaceDTOArray.length != 0 ? Arrays.asList(marketplaceDTOArray) : Collections.emptyList();
@@ -71,13 +64,7 @@ public class ApiServiceImpl implements ApiService {
     @Override
     public List<ListingStatusDTO> getListingStatusList() {
         LOGGER.info("Fetching listing status data from API");
-//        String responseJSON = getResponseJSON(listingStatusUrl);
-        String responseJSON = "";
-        try {
-            responseJSON = new String(Files.readAllBytes(ResourceUtils.getFile("classpath:listingstatus.json").toPath()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String responseJSON = getResponseJSON(listingStatusUrl);
         ListingStatusDTO[] listingStatusDTOArray = gson.fromJson(responseJSON, ListingStatusDTO[].class);
         LOGGER.info("Fetching listing status data from API finished");
         return listingStatusDTOArray.length != 0 ? Arrays.asList(listingStatusDTOArray) : Collections.emptyList();
@@ -86,13 +73,7 @@ public class ApiServiceImpl implements ApiService {
     @Override
     public List<LocationDTO> getLocationList() {
         LOGGER.info("Fetching location data from API");
-//        String responseJSON = getResponseJSON(locationUrl);
-        String responseJSON = "";
-        try {
-            responseJSON = new String(Files.readAllBytes(ResourceUtils.getFile("classpath:locationdata.json").toPath()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String responseJSON = getResponseJSON(locationUrl);
         LocationDTO[] locationDTOArray = gson.fromJson(responseJSON, LocationDTO[].class);
         LOGGER.info("Fetching location data from API finished");
         return locationDTOArray.length != 0 ? Arrays.asList(locationDTOArray) : Collections.emptyList();
@@ -101,13 +82,7 @@ public class ApiServiceImpl implements ApiService {
     @Override
     public List<ListingDTO> getListingList() {
         LOGGER.info("Fetching listing data from API");
-//        String responseJSON = getResponseJSON(listingUrl);
-        String responseJSON = "";
-        try {
-            responseJSON = new String(Files.readAllBytes(ResourceUtils.getFile("classpath:listing.json").toPath()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String responseJSON = getResponseJSON(listingUrl);
         ListingDTO[] listingDTOArray = gson.fromJson(responseJSON, ListingDTO[].class);
         LOGGER.info("Fetching listing data from API finished");
         return listingDTOArray.length != 0 ? Arrays.asList(listingDTOArray) : Collections.emptyList();

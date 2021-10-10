@@ -69,28 +69,28 @@ public class ListingValidatorServiceImpl implements ListingValidatorService {
         return invalidFields;
     }
 
-    private boolean isValidTitle(String str) {
-        return str != null;
+    private boolean isValidTitle(String title) {
+        return title != null;
     }
 
-    private boolean isValidDescription(String str) {
-        return str != null;
+    private boolean isValidDescription(String description) {
+        return description != null;
     }
 
-    private boolean isValidListingPrice(Double d) {
-        return d.toString().matches(PRICE_REGEX);
+    private boolean isValidListingPrice(Double listingPrice) {
+        return listingPrice.toString().matches(PRICE_REGEX);
     }
 
-    private boolean isValidCurrency(String str) {
-        return str != null && str.length() == 3;
+    private boolean isValidCurrency(String currency) {
+        return currency != null && currency.length() == 3;
     }
 
-    private boolean isValidQuantity(long i) {
-        return i > 0;
+    private boolean isValidQuantity(long quantity) {
+        return quantity > 0;
     }
 
-    private boolean isValidOwnerEmailAddress(String str) {
-        return str != null && str.matches(EMAIL_REGEX);
+    private boolean isValidOwnerEmailAddress(String emailAddress) {
+        return emailAddress != null && emailAddress.matches(EMAIL_REGEX);
     }
 
     private InvalidListingData createValidationResult(ListingDTO listingDTO, List<String> invalidFields) {

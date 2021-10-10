@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MonthlyReport {
-    String date;
-    Long listingPerMonth;
-    Double totalPriceMonthly;
-    Double avgListingPriceMonthly;
-    String marketplaceName;
+    private String date;
+    private Long listingPerMonth;
+    private Double totalPriceMonthly;
+    private Double avgListingPriceMonthly;
+    private String marketplaceName;
 }

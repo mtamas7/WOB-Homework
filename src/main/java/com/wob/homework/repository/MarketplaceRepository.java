@@ -6,10 +6,4 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MarketplaceRepository extends JpaRepository<MarketplaceEntity, Long> {
-    /*@Modifying
-    @Query(
-            value = "truncate table marketplaces",
-            nativeQuery = true
-    )
-    void truncateListingsTable();*/
 }

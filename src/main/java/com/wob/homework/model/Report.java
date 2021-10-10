@@ -12,16 +12,12 @@ import java.util.List;
 @AllArgsConstructor
 public class Report {
     private long totalListingCount;
-
     private long totalEbayListingCount;
     private double totalEbayListingPrice;
     private double averageEbayListingPrice;
-
     private long totalAmazonListingCount;
     private double totalAmazonListingPrice;
     private double averageAmazonListingPrice;
-
     private String bestListerEmailAddress;
-
     private List<MonthlyReport> monthlyReports;
 }
