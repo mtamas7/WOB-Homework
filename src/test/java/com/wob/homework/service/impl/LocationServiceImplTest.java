@@ -13,7 +13,6 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -51,7 +50,7 @@ class LocationServiceImplTest {
 
         verify(locationRepository).saveAll(argumentCaptor.capture());
         assertEquals(1, argumentCaptor.getValue().size());
-        assertEquals(UUID.fromString(MOCK_UUID), argumentCaptor.getValue().get(0).getId());
+        assertEquals(MOCK_UUID, argumentCaptor.getValue().get(0).getId());
         assertEquals(MOCK_MANAGER_NAME, argumentCaptor.getValue().get(0).getManagerName());
     }
 

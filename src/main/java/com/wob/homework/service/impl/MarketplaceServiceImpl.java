@@ -1,7 +1,7 @@
 package com.wob.homework.service.impl;
 
 import com.wob.homework.dto.MarketplaceDTO;
-import com.wob.homework.entity.MarketPlaceEntity;
+import com.wob.homework.entity.MarketplaceEntity;
 import com.wob.homework.repository.MarketplaceRepository;
 import com.wob.homework.service.ApiService;
 import com.wob.homework.service.MarketplaceService;
@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,10 +29,11 @@ public class MarketplaceServiceImpl implements MarketplaceService {
     }
 
     @Override
+    @Transactional
     public void fetchAndSaveMarketplaceData() {
         LOGGER.info("Marketplace data fetching is in progress...");
         List<MarketplaceDTO> marketPlaceList = apiService.getMarketplaceList();
-        List<MarketPlaceEntity> marketPlaceEntities = marketPlaceList.stream()
+        List<MarketplaceEntity> marketPlaceEntities = marketPlaceList.stream()
                 .map(this::mapMarketplaceDTO)
                 .collect(Collectors.toList());
         if (!marketPlaceEntities.isEmpty()) {
@@ -43,7 +45,7 @@ public class MarketplaceServiceImpl implements MarketplaceService {
         }
     }
 
-    private MarketPlaceEntity mapMarketplaceDTO(MarketplaceDTO marketPlaceDTO) {
-        return new MarketPlaceEntity(marketPlaceDTO.getId(), marketPlaceDTO.getMarketplaceName());
+    private MarketplaceEntity mapMarketplaceDTO(MarketplaceDTO marketPlaceDTO) {
+        return new MarketplaceEntity(marketPlaceDTO.getId(), marketPlaceDTO.getMarketplaceName());
     }
 }

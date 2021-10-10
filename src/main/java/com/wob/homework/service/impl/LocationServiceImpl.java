@@ -9,9 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,6 +28,7 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
+    @Transactional
     public void fetchAndSaveLocationData() {
         LOGGER.info("Listing location fetching is in progress...");
         List<LocationDTO> locationList = apiService.getLocationList();
@@ -44,7 +45,7 @@ public class LocationServiceImpl implements LocationService {
     }
 
     private LocationEntity mapLocationDTO(LocationDTO locationDTO) {
-        return new LocationEntity(UUID.fromString(locationDTO.getId()),
+        return new LocationEntity(locationDTO.getId(),
                 locationDTO.getManagerName(),
                 locationDTO.getPhone(),
                 locationDTO.getAddressPrimary(),

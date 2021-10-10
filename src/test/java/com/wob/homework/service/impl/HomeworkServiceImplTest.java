@@ -1,5 +1,6 @@
 package com.wob.homework.service.impl;
 
+import com.wob.homework.service.ListingService;
 import com.wob.homework.service.ListingStatusService;
 import com.wob.homework.service.LocationService;
 import com.wob.homework.service.MarketplaceService;
@@ -21,12 +22,15 @@ class HomeworkServiceImplTest {
     @Mock
     private LocationService locationService;
 
+    @Mock
+    private ListingService listingService;
+
     private HomeworkServiceImpl underTest;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        underTest = new HomeworkServiceImpl(marketplaceService, listingStatusService, locationService);
+        underTest = new HomeworkServiceImpl(marketplaceService, listingStatusService, locationService, listingService);
     }
 
     @Test
@@ -45,5 +49,11 @@ class HomeworkServiceImplTest {
     void shouldCallLocationService() {
         underTest.fetchDataAndCreateReport();
         verify(locationService).fetchAndSaveLocationData();
+    }
+
+    @Test
+    void shouldCallListingService() {
+        underTest.fetchDataAndCreateReport();
+        verify(listingService).fetchAndSaveListingData();
     }
 }

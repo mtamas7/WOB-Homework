@@ -9,17 +9,16 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.UUID;
 
 @Entity
-@Table(name = "location")
+@Table(name = "locations")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class LocationEntity {
     @Id
-    private UUID id;
+    private String id;
 
     @Column(name = "manager_name")
     private String managerName;
